@@ -1401,7 +1401,7 @@ let do_build_inductive
 (*   in *)
   let _time2 = System.get_time () in
   try
-    with_full_print (Flags.silently (Command.do_mutual_inductive rel_inds false)) true
+    with_full_print (Flags.silently (Command.do_mutual_inductive rel_inds false None)) true
   with
     | UserError(s,msg) as e ->
 	let _time3 = System.get_time () in
@@ -1412,7 +1412,8 @@ let do_build_inductive
 	in
 	let msg =
 	  str "while trying to define"++ spc () ++
-	    Ppvernac.pr_vernac (Vernacexpr.VernacInductive(false,Decl_kinds.Finite,false,repacked_rel_inds))
+	    Ppvernac.pr_vernac
+              (Vernacexpr.VernacInductive(false, None, Decl_kinds.Finite,false,repacked_rel_inds))
 	    ++ fnl () ++
 	    msg
 	in
@@ -1427,7 +1428,8 @@ let do_build_inductive
 	in
 	let msg =
 	  str "while trying to define"++ spc () ++
-	    Ppvernac.pr_vernac (Vernacexpr.VernacInductive(false,Decl_kinds.Finite,false,repacked_rel_inds))
+	    Ppvernac.pr_vernac
+              (Vernacexpr.VernacInductive(false, None, Decl_kinds.Finite,false,repacked_rel_inds))
 	    ++ fnl () ++
 	    Errors.print reraise
 	in

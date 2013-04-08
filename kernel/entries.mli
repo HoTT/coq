@@ -46,6 +46,7 @@ type mutual_inductive_entry = {
   mind_entry_params : (Id.t * local_entry) list;
   mind_entry_inds : one_inductive_entry list;
   mind_entry_polymorphic : bool;
+  mind_entry_private : bool option; (* Some true = private Some false = local *)
   mind_entry_universes : Univ.universe_context }
 
 (** {6 Constants (Definition/Axiom) } *)

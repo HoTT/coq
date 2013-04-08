@@ -17,6 +17,7 @@ open Termops
 open Pattern
 open Globnames
 open Locus
+open Univ
 
 type reduction_tactic_error =
     InvalidAbstraction of env * constr * (env * Type_errors.type_error)
@@ -105,3 +106,7 @@ val find_hnf_rectype :
 
 val contextually : bool -> occurrences * constr_pattern ->
   (patvar_map -> reduction_function) -> reduction_function
+
+(* returns the same inductive if it is allowed for pattern-matching
+  raises an error otherwise. *)
+val check_privacy : env -> inductive puniverses -> inductive puniverses

@@ -626,7 +626,7 @@ let used_section_variables env inds =
       Id.Set.empty inds in
   keep_hyps env ids
 
-let build_inductive env p ctx env_ar params isrecord isfinite inds nmr recargs =
+let build_inductive env p prv ctx env_ar params isrecord isfinite inds nmr recargs =
   let ntypes = Array.length inds in
   (* Compute the set of used section variables *)
   let hyps =  used_section_variables env inds in
@@ -689,6 +689,7 @@ let build_inductive env p ctx env_ar params isrecord isfinite inds nmr recargs =
       mind_params_ctxt = params;
       mind_packets = packets;
       mind_polymorphic = p;
+      mind_private = ref prv;
       mind_universes = ctx;
       mind_native_name = ref NotLinked
     }
@@ -705,7 +706,7 @@ let check_inductive env kn mie =
   let (nmr,recargs) = check_positivity kn env_ar params inds in
   let univs = Univ.check_context_subset univs mie.mind_entry_universes in
   (* Build the inductive packets *)
-    build_inductive env mie.mind_entry_polymorphic 
+    build_inductive env mie.mind_entry_polymorphic mie.mind_entry_private
       univs
       env_ar params mie.mind_entry_record mie.mind_entry_finite
       inds nmr recargs

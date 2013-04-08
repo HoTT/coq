@@ -220,7 +220,6 @@ let sort_cmp pb s0 s1 cuniv =
 	(match pb with
            | CONV -> Univ.enforce_eq u1 u2 cuniv
 	   | CUMUL -> enforce_leq u1 u2 cuniv)
-    | (_, _) -> raise NotConvertible
 
 let conv_sort env s0 s1 = sort_cmp CONV s0 s1 Constraint.empty
 let conv_sort_leq env s0 s1 = sort_cmp CUMUL s0 s1 Constraint.empty  

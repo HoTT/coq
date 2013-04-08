@@ -268,7 +268,7 @@ type vernac_expr =
   | VernacEndProof of proof_end
   | VernacExactProof of constr_expr
   | VernacAssumption of assumption_kind * inline * simple_binder with_coercion list
-  | VernacInductive of polymorphic * inductive_flag * infer_flag * (inductive_expr * decl_notation list) list
+  | VernacInductive of polymorphic * bool option * inductive_flag * infer_flag * (inductive_expr * decl_notation list) list
   | VernacFixpoint of locality * (fixpoint_expr * decl_notation list) list
   | VernacCoFixpoint of locality * (cofixpoint_expr * decl_notation list) list
   | VernacScheme of (lident option * scheme) list

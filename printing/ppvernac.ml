@@ -623,7 +623,7 @@ let rec pr_vernac = function
       hov 2
         (pr_assumption_token (n > 1) stre ++ spc() ++
 	 pr_ne_params_list pr_lconstr_expr l)
-  | VernacInductive (p,f,i,l) ->
+  | VernacInductive (p,lo,f,i,l) ->
       let pr_constructor (coe,(id,c)) =
         hov 2 (pr_lident id ++ str" " ++
                (if coe then str":>" else str":") ++
@@ -653,7 +653,7 @@ let rec pr_vernac = function
 	match k with Record -> "Record" | Structure -> "Structure"
 	  | Inductive_kw -> "Inductive" | CoInductive -> "CoInductive"
 	  | Class _ -> "Class" in
-      hov 1 (pr_poly p ++ pr_oneind key (List.hd l)) ++
+      hov 1 (pr_locality_full lo ++ pr_poly p ++ pr_oneind key (List.hd l)) ++
       (prlist (fun ind -> fnl() ++ hov 1 (pr_oneind "with" ind)) (List.tl l))
 
 

@@ -250,6 +250,8 @@ let inductive_names sp kn mie =
   in names
 
 let load_inductive i ((sp,kn),(_,mie)) =
+  let mib = Environ.lookup_mind (mind_of_kn kn) (Global.env()) in
+    (match !(mib.mind_private) with Some true -> mib.mind_private := Some false | _ -> ());
   let names = inductive_names sp kn mie in
   List.iter (fun (sp, ref) -> Nametab.push (Nametab.Until i) sp ref ) names
 
@@ -293,6 +295,7 @@ let dummy_inductive_entry (_,m) = ([],{
   mind_entry_finite = true;
   mind_entry_inds = List.map dummy_one_inductive_entry m.mind_entry_inds;
   mind_entry_polymorphic = false;
+  mind_entry_private = None;
   mind_entry_universes = Univ.Context.empty })
 
 type inductive_obj = Dischargedhypsmap.discharged_hyps * mutual_inductive_entry
