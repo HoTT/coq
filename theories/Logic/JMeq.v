@@ -19,6 +19,8 @@ Set Implicit Arguments.
 
 Unset Elimination Schemes.
 
+Set Universe Polymorphism.
+
 Inductive JMeq (A:Type) (x:A) : forall B:Type, B -> Prop :=
     JMeq_refl : JMeq x x.
 
