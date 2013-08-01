@@ -741,6 +741,11 @@ TACTIC EXTEND constr_eq
     if eq_constr x y then tclIDTAC else tclFAIL 0 (str "Not equal") ]
 END
 
+TACTIC EXTEND constr_eq_nounivs
+| [ "constr_eq_nounivs" constr(x) constr(y) ] -> [
+    if eq_constr_nounivs x y then tclIDTAC else tclFAIL 0 (str "Not equal") ]
+END
+
 TACTIC EXTEND is_evar
 | [ "is_evar" constr(x) ] ->
     [ match kind_of_term x with

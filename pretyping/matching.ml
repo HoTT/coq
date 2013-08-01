@@ -50,7 +50,7 @@ exception PatternMatchingFailure
 let constrain n (ids, m as x) (names, terms as subst) =
   try
     let (ids',m') = List.assoc n terms in
-    if List.equal Id.equal ids ids' && eq_constr m m' then subst
+    if List.equal Id.equal ids ids' && eq_constr_nounivs m m' then subst
     else raise PatternMatchingFailure
   with
       Not_found ->
