@@ -759,11 +759,11 @@ let ind_scheme_of_eq lbeq =
     ConstRef c
 
 
-let discrimination_pf env sigma e (t,t1,t2) discriminator lbeq =
+let discrimination_pf sigma e (t,t1,t2) discriminator lbeq =
   let i           = build_coq_I () in
   let absurd_term = build_coq_False () in
   let eq_elim     = ind_scheme_of_eq lbeq in
-  let sigma, eq_elim = Evd.fresh_global Evd.univ_rigid env sigma eq_elim in
+  let sigma, eq_elim = Evd.fresh_global Evd.univ_rigid (Global.env ()) sigma eq_elim in
     sigma, ((applist (eq_elim, [t;t1;mkNamedLambda e t discriminator;i;t2]), absurd_term))
 
 let eq_baseid = Id.of_string "e"
@@ -782,7 +782,7 @@ let discr_positions env sigma (lbeq,eqn,(t,t1,t2)) eq_clause cpath dirn sort =
   let e_env = push_named (e,None,t) env in
   let discriminator =
     build_discriminator sigma e_env dirn (mkVar e) sort cpath in
-  let sigma,(pf, absurd_term) = discrimination_pf env sigma e (t,t1,t2) discriminator lbeq in
+  let sigma,(pf, absurd_term) = discrimination_pf sigma e (t,t1,t2) discriminator lbeq in
   let pf_ty = mkArrow eqn absurd_term in
   let absurd_clause = apply_on_clause (pf,pf_ty) eq_clause in
   let pf = clenv_value_cast_meta absurd_clause in
