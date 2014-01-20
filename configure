@@ -339,6 +339,8 @@ if [ "$MAKE" != "" ]; then
   MAKEVERSIONMINOR=`echo $MAKEVERSION | cut -d. -f2`
   if [ "$MAKEVERSIONMAJOR" -eq 3 -a "$MAKEVERSIONMINOR" -ge 81 ]; then
       echo "You have GNU Make $MAKEVERSION. Good!"
+  elif [ "$MAKEVERSIONMAJOR" -ge 4]; then
+      echo "You have GNU Make $MAKEVERSION. Good!"
   else
       OK="no"
       #Extra support for local installation of make 3.81
